@@ -1,0 +1,64 @@
+﻿<Window x:Class="DemshkanPR1.ProductAdd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DemshkanPR1"
+        mc:Ignorable="d"
+        Title="Товар" Height="750" Width="800" MinHeight="750" MinWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Name="TextProdID" Text="ID товара" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0" Visibility="Collapsed"/>
+        <TextBox  Name="TextBoxProdID" Width="175" Height="25"  HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Text="{Binding ProductArticleNumber}" IsReadOnly="True" Visibility="Collapsed"/>
+        <TextBlock Text="Наименование" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0"/>
+        <TextBox Width="175" Height="25"  HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Text="{Binding ProductName}"/>
+        <TextBlock Text="Категория" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0"/>
+        <ComboBox Name="ComboCategory" Width="175" Height="25" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" SelectedItem="{Binding TypePorduct}" DisplayMemberPath="TypeName"/>
+        <TextBlock Text="Количество на складе/Ед. изм." Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+            <TextBox Width="175" Height="25" HorizontalAlignment="Left" Margin="7,20,0,19" Text="{Binding ProductQuantityInStock}"/>
+            <TextBlock Text=" / " VerticalAlignment="Center"/>
+            <ComboBox Name="ComboMeasur" Width="85" Height="25" HorizontalAlignment="Left" SelectedItem="{Binding UnitMeasurement}" DisplayMemberPath="MeasurementName"/>
+        </StackPanel>
+        <TextBlock Text="Действ. скидка/Макс. скидка" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+            <TextBox Text="{Binding ProductDiscountAmount}"/>
+            <TextBlock Text=" / " VerticalAlignment="Center"/>
+            <TextBox Text="{Binding PoductMaxDiscount}"/>
+        </StackPanel>
+        <TextBlock Text="Поставщик/Производитель" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
+            <ComboBox Name="ComboTransfer"  Width="175" Height="25" HorizontalAlignment="Left" SelectedItem="{Binding Transfer}" DisplayMemberPath="TransferName"/>
+            <TextBlock Text=" / " VerticalAlignment="Center"/>
+            <ComboBox Name="ComboManuf" Width="175" Height="25" HorizontalAlignment="Left" SelectedItem="{Binding Manufacturer}" DisplayMemberPath="ManufacturerName"/>
+        </StackPanel>
+        <TextBlock Text="Стиомость за единицу" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0"/>
+        <TextBox Width="175" Height="25" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="1" Text="{Binding ProductCost}"/>
+        <TextBlock Text="Изображение" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0"/>
+        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
+            <Image Source="{Binding ImageCopy}" Name="PhotoProd"  Width="70" Height="70"/>
+            <StackPanel Orientation="Vertical">
+                <Button Content="Загрузить картинку" Height="25" Name="LoadingPhoto" Click="LoadingPhoto_Click"/>
+                <Button Content="Удалить картинку" Height="25" Name="DeletePhoto" Click="DeletePhoto_Click"/>
+            </StackPanel>
+        </StackPanel>
+        <TextBlock Text="Подробное описание" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0"/>
+        <TextBox Width="175" Height="50" HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" Grid.Row="8" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding ProductDescription}"/>
+        <Button Content="Сохранить" Name="BtnSave" Height="25" Click="BtnSave_Click" Grid.Row="9" Grid.ColumnSpan="2"/>
+    </Grid>
+</Window>

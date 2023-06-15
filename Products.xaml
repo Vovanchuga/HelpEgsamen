@@ -1,0 +1,88 @@
+﻿<Page x:Class="DemshkanPR1.Products"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DemshkanPR1"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Products" IsVisibleChanged="Page_IsVisibleChanged" MouseEnter="Page_MouseEnter">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Поиск товаров: " Width="175" Height="25" TextAlignment="Right"/>
+                <TextBox Width="175" Name="TBoxSearching" TextChanged="TBoxSearching_TextChanged" Height="25"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Сортировка по цене: " Width="175" Height="25" TextAlignment="Right"/>
+                    <ComboBox Width="175" Height="25" Name="ComboSort" SelectionChanged="ComboSort_SelectionChanged">
+                        <ComboBoxItem Content="Нет"/>
+                        <ComboBoxItem Content="По возрастанию"/>
+                        <ComboBoxItem Content="По убыванию"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Фильтрация по производителю: " Width="175" Height="25" TextAlignment="Right"/>
+                    <ComboBox Width="175" Height="25" Name="ComboManuf" SelectionChanged="ComboManuf_SelectionChanged" DisplayMemberPath="ManufacturerName"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <TextBlock Name="CountPoducts" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <ListView Name="LViewProducts" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" Grid.Row="2" SelectionMode="Single" HorizontalContentAlignment="Center">
+            <ListView.ItemTemplate> 
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="2">
+                        <Grid Background="{Binding BGColor}" Margin="5" Width="500">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Width="150"  Grid.Column="0" Stretch="UniformToFill" Margin="5">
+                                <!--<Image.Source>
+                                    ProductPhoto/E345R4.jpg
+                                </Image.Source>-->
+                                <Image.Source>
+                                    <Binding Path="ImageCopy">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>Resources/picture.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+                            <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Grid.Column="1">
+                                <TextBlock Text="{Binding ProductName}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding ProductDescription}" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Manufacturer.ManufacturerName, StringFormat={}Производитель: {0}}"/>
+                                <TextBlock Text="{Binding ProductCost, StringFormat ={}Цена: {0}}"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding ProductQuantityInStock, StringFormat={} В наличии: {0}}" Grid.Column="2" HorizontalAlignment="Right" Margin="5"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ProductQuantityInStock}" Value="0">
+                            <Setter Property="Background" Value="LightGray"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3">
+            <Button  Name="BtnAddProduct" Content="Добавить товар" Click="Button_Click"/>
+            <Button Name="BtnDeleteProduct" Content="Удалить товар" Click="BtnDeleteProduct_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
